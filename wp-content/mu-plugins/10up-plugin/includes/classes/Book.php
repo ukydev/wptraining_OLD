@@ -10,7 +10,7 @@ Author URI:http://github.com/ukydev
 License: GPLv2
 */
 
-namespace TenUpPlugin\Core;
+namespace TenUpPlugin;
 
 class Book
 {
