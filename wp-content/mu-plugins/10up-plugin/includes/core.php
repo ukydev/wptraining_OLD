@@ -8,7 +8,8 @@
 namespace TenUpPlugin\Core;
 
 use \WP_Error;
-
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_DISPLAY', true );
 /**
  * Default setup routine
  *
@@ -30,8 +31,9 @@ function setup() {
 	add_filter( 'mce_css', $n( 'mce_css' ) );
 	// Hook to allow async or defer on asset loading.
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
-
+	Book::get_instance();
 	do_action( 'tenup_plugin_loaded' );
+
 }
 
 /**
