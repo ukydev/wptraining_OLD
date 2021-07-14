@@ -17,7 +17,7 @@ class Book
 
 	private static $instance;
 
-	public static function get_instance()
+	public static function get_instance(): Book
 	{
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -29,14 +29,14 @@ class Book
 	/**
 	 * Initialize Plugin
 	 */
-	private function __construct()
+	public function setup()
 	{
 		// Actions
-		add_action('init', 'tenup_register_post_type');
-		add_action('init', 'tenup_book', 0);
-		add_action('init', 'tenup_register_post_type');
-		add_action('add_meta_boxes', 'book_register_meta_boxes');
-		add_action('save_post', 'book_save_meta_box');
+		add_action('init',[$this, 'tenup_register_post_type']);
+		add_action('init',[$this,'tenup_book']);
+		add_action('init',[$this, 'tenup_register_post_type']);
+		add_action('add_meta_boxes', [$this, 'book_register_meta_boxes']);
+		add_action('save_post', [$this, 'book_save_meta_box']);
 	}
 
 
@@ -129,7 +129,9 @@ class Book
 	 */
 	public function book_save_meta_box($post_id)
 	{
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return;
+		}
 		if ($parent_id = wp_is_post_revision($post_id)) {
 			$post_id = $parent_id;
 		}
